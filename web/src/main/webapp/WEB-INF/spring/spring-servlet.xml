@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="gb2312"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd">
+        
+    <!-- Scans the classpath of this application for @Components to deploy as beans -->
+    
+      <context:component-scan base-package="com.ali.lp.web.*"/>
+<!--     <context:component-scan base-package="com.ali.lp.*">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+	</context:component-scan> -->
+
+    <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basenames">
+            <list>
+                <value>/WEB-INF/messages/messages</value>
+            </list>
+        </property>
+        <property name="cacheSeconds" value="0" />
+        <property name="useCodeAsDefaultMessage" value="true" />
+    </bean>
+
+
+	<!-- Configures the @Controller programming model -->
+<!-- 	<mvc:annotation-driven />
+ -->	
+	<mvc:annotation-driven>
+		<mvc:message-converters register-defaults="true">
+			<bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
+				<property name="supportedMediaTypes"> 
+					<list>
+						<value>application/json;charset=UTF-8</value>
+						<value>text/html;charset=UTF-8</value>
+					</list>
+				</property>
+				 <property name="features"> 
+                	<list> 
+	                    <value>WriteMapNullValue</value> 
+	                    <value>QuoteFieldNames</value> 
+                	</list> 
+            	</property>
+			</bean>
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+
+    <!-- Resolves view names to protected .jsp resources within the /WEB-INF/jsp directory -->
+    <!--<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/jsp/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>-->
+
+    <!-- tiles的定义 -->
+    <bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
+        <property name="preparerFactoryClass" value="org.springframework.web.servlet.view.tiles2.SpringBeanPreparerFactory" />
+        <property name="definitions">
+            <list>
+                <value>/WEB-INF/tiles/*.xml</value>
+            </list>
+        </property>
+    </bean>
+    
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.tiles2.TilesView" />
+    </bean>
+    
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize"><value>102400000</value></property>
+    </bean>
+
+</beans>

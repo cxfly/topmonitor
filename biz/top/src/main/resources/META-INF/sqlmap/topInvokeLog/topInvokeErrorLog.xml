@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="TopInvokeErrorLog">
+    <typeAlias alias="TopInvokeErrorLog" type="com.ali.lp.top.entity.TopInvokeErrorLog"/>
+    <!--
+      - ===============================================
+      - 将before_check_flag表映射到TopInvokeErrorLog类
+      - ===============================================
+     -->
+    <resultMap id="TopInvokeErrorLogResultMap" class="TopInvokeErrorLog">
+        <result property="id" column="ID" />
+        <result property="beforeCheckFlag" column="before_check_flag" javaType="java.lang.String" jdbcType="DATETIME"/>
+        <result property="checkResult" column="check_result" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="invokeStartDate" column="invoke_start_date" javaType="java.util.Date" jdbcType="DATETIME"/>
+        <result property="invokeEndDate" column="invoke_end_date" javaType="java.util.Date" jdbcType="DATETIME"/>
+        <result property="topUrl" column="top_url" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="appKey" column="app_key" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="province" column="secret" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="invokeApi" column="invoke_api" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="successFlag" column="success_flag" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="errorCode" column="error_code" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="errorMsg" column="error_msg" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="subErrorCode" column="sub_error_code" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="subErrorMsg" column="sub_error_msg" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="paramIn" column="param_in" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="paramquery" column="paramquery" javaType="java.lang.String" jdbcType="VARCHAR"/> 
+        <result property="outputResult" column="output_result" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="memo" column="memo" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="xx" column="xx" javaType="java.lang.String" jdbcType="VARCHAR"/>
+    </resultMap>
+    
+    <insert id="TopInvokeErrorLog.insert" parameterClass="TopInvokeErrorLog">
+		<selectKey resultClass="java.lang.Long" keyProperty="id">
+			select wl_top_invoke_error_log_seq.nextval from dual
+		</selectKey>
+		<![CDATA[
+			insert into wl_top_invoke_error_log(id, before_check_flag, check_result, invoke_start_date, invoke_end_date, top_url, app_key,secret, 
+				invoke_api, success_flag,error_code, error_msg, sub_error_code, sub_error_msg, param_in, paramquery, output_result, memo)
+			values(#id#, #beforeCheckFlag#, #checkResult#, #invokeStartDate#, #invokeEndDate#, #topUrl#, #appKey#,#secret#, #invokeApi#,
+				#successFlag#,#errorCode#, #errorMsg#, #subErrorCode#, #subErrorMsg#, #paramIn#, #paramquery#, #outputResult#, #memo#)
+		]]>
+    </insert>
+
+   <select id="TopInvokeErrorLog.queryAllRowCount" resultClass="long">
+     <![CDATA[
+		select count(*) from wl_top_invoke_error_log t
+	 ]]>
+   </select>
+
+
+    
+    </sqlMap>

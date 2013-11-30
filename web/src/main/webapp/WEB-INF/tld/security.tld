@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE taglib PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.1//EN" "http://java.sun.com/j2ee/dtds/web-jsptaglibrary_1_1.dtd">
+<taglib>
+    <tlibversion>1.0</tlibversion>
+    <jspversion>1.1</jspversion>
+    <shortname>vod-server</shortname>
+    <uri>http://www.zhongbo.com.cn/jsp/security</uri>
+    <tag>
+        <name>checkPermission</name>
+        <tagclass>com.zhongbo.framework.taglibs.security.CheckPermissionTag</tagclass>
+        <bodycontent>JSP</bodycontent>
+        <info>check permission</info>
+        <attribute>
+            <name>resourceKey</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+    <tag>
+        <name>failed</name>
+        <tagclass>com.zhongbo.framework.taglibs.security.CheckPermissionFailedTag</tagclass>
+        <bodycontent>JSP</bodycontent>
+        <info>check permission failed</info>
+    </tag>
+    <tag>
+        <name>success</name>
+        <tagclass>com.zhongbo.framework.taglibs.security.CheckPermissionSuccessfulTag</tagclass>
+        <bodycontent>JSP</bodycontent>
+        <info>check permission success</info>
+    </tag>
+	
+	<tag>
+        <name>loginOrg</name>
+        <tagclass>com.zhongbo.framework.taglibs.security.GetLoginOrgTag</tagclass>
+        <bodycontent>empty</bodycontent>
+        <info></info>
+        <attribute>
+            <name>var</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+        </attribute>
+    </tag>
+
+</taglib>

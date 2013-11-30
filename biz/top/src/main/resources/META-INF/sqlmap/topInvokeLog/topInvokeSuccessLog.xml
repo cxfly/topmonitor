@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="TopInvokeSuccessLog">
+    <typeAlias alias="TopInvokeSuccessLog" type="com.ali.lp.top.entity.TopInvokeSuccessLog"/>
+    <!--
+      - ===============================================
+      - 将wl_top_invoke_success_log表映射到WarehouseDo类
+      - ===============================================
+	-->
+    <resultMap id="TopInvokeSuccessLogResultMap" class="TopInvokeSuccessLog">
+        <result property="id" column="ID" />
+        <result property="apiName" column="api_name" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="times"  column="times" javaType="java.lang.Long" jdbcType="NUMERIC"/>
+        <result property="lastModifyDate" column="last_modify_date" javaType="java.util.Date" jdbcType="DATETIME"/>
+        <result property="createDate" column="create_date" javaType="java.util.Date" jdbcType="DATETIME"/>
+    </resultMap>
+    
+    <insert id="TopInvokeSuccessLog.insert" parameterClass="TopInvokeSuccessLog">
+            <selectKey resultClass="java.lang.Long" keyProperty="id" >
+               select wl_top_invoke_success_log_seq.nextval id from dual
+            </selectKey>    
+            insert into wl_top_invoke_success_log (id, api_name, times, last_modify_date, create_date)
+			values(#id#, #apiName#, #times#, #lastModifyDate#, #createDate#)
+    </insert>
+    
+    <select id="TopInvokeSuccessLog.selectById" parameterClass="Long" resultMap="TopInvokeSuccessLogResultMap">
+		select t.id, t.api_name, t.times, t.last_modify_date, t.create_date
+		  from wl_top_invoke_success_log t
+		 where t.id = #id#
+    </select>
+    
+    <select id="TopInvokeSuccessLog.selectRowCount" resultClass="Long">
+    	<![CDATA[
+		select nvl(sum(t.times),0) from wl_top_invoke_success_log t
+		]]>
+    </select>
+    
+    <update id="TopInvokeSuccessLog.updateById" parameterClass="TopInvokeSuccessLog">
+		update wl_top_invoke_success_log t
+		   set t.api_name         = #apiName#,
+		       t.times            = #times#,
+		       t.last_modify_date = #lastModifyDate#,
+		       t.create_date      = #createDate#
+		 where t.id = #id#
+    </update>
+    
+    <update id="TopInvokeSuccessLog.updateByApiNameAndModifyDate" parameterClass="Map">
+    	<![CDATA[
+		update wl_top_invoke_success_log t
+		   set t.times            = t.times + #times#,
+		       t.last_modify_date      = #lastModifyDate#
+		 where t.api_name         = #apiName#
+		   and trunc(t.last_modify_date)= #lastModifyDate2#
+		]]>	
+    </update>
+
+	<delete id="TopInvokeSuccessLog.deleteById" parameterClass="Long">
+    	<![CDATA[
+    		delete from wl_top_invoke_success_log where ID=#id#
+    	]]>	
+    </delete>
+
+    </sqlMap>

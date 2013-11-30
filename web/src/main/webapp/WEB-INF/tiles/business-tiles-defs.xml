@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC    
+  "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"    
+  "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+
+<tiles-definitions>
+   <!-- ========== merge tiles-defs.xml start ========== -->
+    <!-- If you have non XDoclet actions, define them in a file called struts-actions.xml and place it in your merge directory. -->
+   <!-- ========== merge tiles-defs.xml end ========== -->
+
+   <!-- ========== Generate from label in java code ========== -->
+
+    <definition name="main.layout" template="/WEB-INF/jsp/mainLayout.jsp"/>
+    <definition name="invoke.log" template="/WEB-INF/jsp/invokeLog.jsp"/>
+
+</tiles-definitions>
